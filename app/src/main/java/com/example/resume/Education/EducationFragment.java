@@ -16,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.resume.AddEducationDialog;
 import com.example.resume.MainActivity;
 import com.example.resume.R;
 import com.example.resume.ResumeViewModel;
@@ -32,8 +33,10 @@ public class EducationFragment extends Fragment {
   private FloatingActionButton floatingActionButton;
   private EducationListAdapter adapter = new EducationListAdapter();
   private ResumeViewModel resumeViewModel;
+  private Activity activity;
 
-  public EducationFragment() {
+  public EducationFragment(Activity activity) {
+    this.activity = activity;
   }
 
   @Override
@@ -58,6 +61,14 @@ public class EducationFragment extends Fragment {
 
     recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
     recyclerView.setAdapter(adapter);
+
+    floatingActionButton.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View view) {
+        AddEducationDialog dialog = new AddEducationDialog();
+        dialog.show(((MainActivity) activity).getSupportFragmentManager(), "Add Education");
+      }
+    });
 
     return view;
   }

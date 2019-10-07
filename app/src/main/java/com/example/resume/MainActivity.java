@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
           case R.id.education:
             getSupportFragmentManager()
               .beginTransaction()
-              .replace(R.id.fragment_container, new EducationFragment())
+              .replace(R.id.fragment_container, new EducationFragment(MainActivity.this))
               .commit();
             break;
 
