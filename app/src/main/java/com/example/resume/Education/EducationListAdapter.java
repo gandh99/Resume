@@ -49,6 +49,10 @@ public class EducationListAdapter extends ListAdapter<Education, EducationListAd
     holder.textViewPeriod.setText(education.getPeriod());
   }
 
+  public Education getItemAt(int position) {
+    return getItem(position);
+  }
+
   class EducationViewHolder extends RecyclerView.ViewHolder {
     TextView textViewInstitution;
     TextView textViewPeriod;

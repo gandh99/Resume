@@ -79,6 +79,7 @@ public class MainActivity extends AppCompatActivity {
             break;
 
           case R.id.education:
+            toolbar.setTitle(menuItem.getTitle());
             getSupportFragmentManager()
               .beginTransaction()
               .replace(R.id.fragment_container, new EducationFragment(MainActivity.this))

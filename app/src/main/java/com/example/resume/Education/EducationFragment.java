@@ -2,13 +2,15 @@ package com.example.resume.Education;
 
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -34,6 +36,7 @@ public class EducationFragment extends Fragment {
   private EducationListAdapter adapter = new EducationListAdapter();
   private ResumeViewModel resumeViewModel;
   private Activity activity;
+  private int DIALOG_REQUEST_CODE = 1;
 
   public EducationFragment(Activity activity) {
     this.activity = activity;
@@ -62,15 +65,44 @@ public class EducationFragment extends Fragment {
     recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
     recyclerView.setAdapter(adapter);
 
+    // Add education
     floatingActionButton.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
         AddEducationDialog dialog = new AddEducationDialog();
+        dialog.setTargetFragment(EducationFragment.this, DIALOG_REQUEST_CODE);
         dialog.show(((MainActivity) activity).getSupportFragmentManager(), "Add Education");
       }
     });
 
+    // Swipe to delete education
+    new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT
+      | ItemTouchHelper.RIGHT ) {
+      @Override
+      public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder,
+                            @NonNull RecyclerView.ViewHolder target) {
+        return false;
+      }
+
+      @Override
+      public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+        Education education = adapter.getItemAt(viewHolder.getAdapterPosition());
+        resumeViewModel.deleteEducation(education);
+      }
+    }).attachToRecyclerView(recyclerView);
+
     return view;
   }
 
+  @Override
+  public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+    super.onActivityResult(requestCode, resultCode, data);
+
+    if (requestCode == DIALOG_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+      String institution = data.getStringExtra("institution");
+      String period = data.getStringExtra("period");
+      Education education = new Education(institution, period);
+      resumeViewModel.insertEducation(education);
+    }
+  }
 }

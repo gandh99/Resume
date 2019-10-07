@@ -10,8 +10,7 @@ public class Education {
   private String institution;
   private String period;
 
-  public Education(int id, String institution, String period) {
-    this.id = id;
+  public Education(String institution, String period) {
     this.institution = institution;
     this.period = period;
   }
