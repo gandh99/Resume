@@ -3,15 +3,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".EducationFragment"
+    tools:context=".Education.EducationFragment"
     >
 
-    <TextView
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/recycler_view_education"
+        />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Education Fragment"
-        android:textSize="30sp"
-        android:layout_centerInParent="true"
+        android:src="@drawable/ic_add"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="25dp"
+        android:id="@+id/fab_add_education"
         />
 
 </RelativeLayout>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_margin="10dp">
+
+        <TextView
+            android:id="@+id/list_item_education_institution"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Institution"
+            android:textSize="20sp"
+            style="@style/ListItem"
+            />
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:background="?android:attr/listDivider" />
+
+        <TextView
+            android:id="@+id/list_item_education_period"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Institution"
+            style="@style/ListItem"
+            />
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

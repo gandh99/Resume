@@ -6,11 +6,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.example.resume.Education.EducationFragment;
 import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity {
@@ -26,15 +28,7 @@ public class MainActivity extends AppCompatActivity {
     findViewReferences();
     setupActionBar();
     setupNavigationView();
-
-    if (savedInstanceState == null) {
-      getSupportFragmentManager()
-        .beginTransaction()
-        .replace(R.id.fragment_container, new HomeFragment())
-        .commit();
-      navigationView.setCheckedItem(R.id.home);
-    }
-
+    setupInitialFragmentView(savedInstanceState);
   }
 
   private void findViewReferences() {
@@ -93,5 +87,15 @@ public class MainActivity extends AppCompatActivity {
         return true;
       }
     });
+  }
+
+  private void setupInitialFragmentView(Bundle savedInstanceState) {
+    if (savedInstanceState == null) {
+      getSupportFragmentManager()
+        .beginTransaction()
+        .replace(R.id.fragment_container, new HomeFragment())
+        .commit();
+      navigationView.setCheckedItem(R.id.home);
+    }
   }
 }
