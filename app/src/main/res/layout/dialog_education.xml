@@ -25,6 +25,13 @@
             android:hint="Institution"
             style="@style/DialogItem"
             />
+        <Spinner
+            android:id="@+id/dialog_education_level"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:spinnerMode="dropdown"
+            style="@style/DialogItem"
+            />
         <EditText
             android:id="@+id/dialog_education_period"
             android:layout_width="match_parent"

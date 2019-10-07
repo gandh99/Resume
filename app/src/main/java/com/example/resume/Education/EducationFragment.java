@@ -18,7 +18,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.resume.AddEducationDialog;
 import com.example.resume.MainActivity;
 import com.example.resume.R;
 import com.example.resume.ResumeViewModel;
@@ -62,6 +61,7 @@ public class EducationFragment extends Fragment {
     recyclerView = view.findViewById(R.id.recycler_view_education);
     floatingActionButton = view.findViewById(R.id.fab_add_education);
 
+    // Setup recyclerView
     recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
     recyclerView.setAdapter(adapter);
 
