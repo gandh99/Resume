@@ -6,19 +6,25 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.example.resume.Education.Education;
 import com.example.resume.Education.EducationFragment;
 import com.google.android.material.navigation.NavigationView;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
   private DrawerLayout drawerLayout;
   private Toolbar toolbar;
   private NavigationView navigationView;
+  private ResumeViewModel resumeViewModel;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     setContentView(R.layout.activity_main);
 
     findViewReferences();
+    setupViewModel();
     setupActionBar();
     setupNavigationView();
     setupInitialFragmentView(savedInstanceState);
@@ -35,6 +42,10 @@ public class MainActivity extends AppCompatActivity {
     drawerLayout = findViewById(R.id.drawer_layout);
     toolbar = findViewById(R.id.toolbar);
     navigationView = findViewById(R.id.nav_view);
+  }
+
+  private void setupViewModel() {
+    resumeViewModel = ViewModelProviders.of(this).get(ResumeViewModel.class);
   }
 
   @Override
