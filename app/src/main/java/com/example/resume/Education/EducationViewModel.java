@@ -1,22 +1,18 @@
-package com.example.resume;
+package com.example.resume.Education;
 
 import android.app.Application;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.ViewModel;
-
-import com.example.resume.Education.Education;
-import com.example.resume.Education.EducationRepository;
 
 import java.util.List;
 
-public class ResumeViewModel extends AndroidViewModel {
+public class EducationViewModel extends AndroidViewModel {
   private EducationRepository educationRepository;
   private LiveData<List<Education>> allEducation;
 
-  public ResumeViewModel(@NonNull Application application) {
+  public EducationViewModel(@NonNull Application application) {
     super(application);
     educationRepository = new EducationRepository(application);
     allEducation = educationRepository.getAllEducation();

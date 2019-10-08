@@ -22,7 +22,6 @@ import android.view.ViewGroup;
 
 import com.example.resume.MainActivity;
 import com.example.resume.R;
-import com.example.resume.ResumeViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
@@ -35,10 +34,10 @@ public class EducationFragment extends Fragment {
   private RecyclerView recyclerView;
   private FloatingActionButton floatingActionButton;
   private EducationListAdapter adapter = new EducationListAdapter();
-  private ResumeViewModel resumeViewModel;
+  private EducationViewModel educationViewModel;
   private Activity activity;
-  private int DIALOG_REQUEST_ADD_CODE = 1;
-  private int DIALOG_REQUEST_UPDATE_CODE = 2;
+  final private int DIALOG_REQUEST_ADD_CODE = 1;
+  final private int DIALOG_REQUEST_UPDATE_CODE = 2;
 
   public EducationFragment(Activity activity) {
     this.activity = activity;
@@ -47,8 +46,8 @@ public class EducationFragment extends Fragment {
   @Override
   public void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    resumeViewModel = ViewModelProviders.of(getActivity()).get(ResumeViewModel.class);
-    resumeViewModel.getAllEducation().observe(this, new Observer<List<Education>>() {
+    educationViewModel = ViewModelProviders.of(getActivity()).get(EducationViewModel.class);
+    educationViewModel.getAllEducation().observe(this, new Observer<List<Education>>() {
       @Override
       public void onChanged(List<Education> educations) {
         adapter.submitList(educations);
@@ -91,7 +90,7 @@ public class EducationFragment extends Fragment {
       @Override
       public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
         Education education = adapter.getItemAt(viewHolder.getAdapterPosition());
-        resumeViewModel.deleteEducation(education);
+        educationViewModel.deleteEducation(education);
       }
     }).attachToRecyclerView(recyclerView);
 
@@ -129,11 +128,11 @@ public class EducationFragment extends Fragment {
       Education education = new Education(institution, qualificationLevel, period, description);
 
       if (requestCode == DIALOG_REQUEST_ADD_CODE) {
-        resumeViewModel.insertEducation(education);
+        educationViewModel.insertEducation(education);
       } else if (requestCode == DIALOG_REQUEST_UPDATE_CODE) {
         int id = data.getIntExtra(AddEducationDialog.INTENT_ID, 0);
         education.setId(id);
-        resumeViewModel.updateEducation(education);
+        educationViewModel.updateEducation(education);
       }
     }
   }

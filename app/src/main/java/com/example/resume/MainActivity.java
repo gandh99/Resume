@@ -6,25 +6,22 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.example.resume.Education.Education;
 import com.example.resume.Education.EducationFragment;
+import com.example.resume.Education.EducationViewModel;
+import com.example.resume.Work.WorkFragment;
 import com.google.android.material.navigation.NavigationView;
-
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
   private DrawerLayout drawerLayout;
   private Toolbar toolbar;
   private NavigationView navigationView;
-  private ResumeViewModel resumeViewModel;
+  private EducationViewModel educationViewModel;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
   }
 
   private void setupViewModel() {
-    resumeViewModel = ViewModelProviders.of(this).get(ResumeViewModel.class);
+    educationViewModel = ViewModelProviders.of(this).get(EducationViewModel.class);
   }
 
   @Override
@@ -83,6 +80,14 @@ public class MainActivity extends AppCompatActivity {
             getSupportFragmentManager()
               .beginTransaction()
               .replace(R.id.fragment_container, new EducationFragment(MainActivity.this))
+              .commit();
+            break;
+
+          case R.id.work:
+            toolbar.setTitle(menuItem.getTitle());
+            getSupportFragmentManager()
+              .beginTransaction()
+              .replace(R.id.fragment_container, new WorkFragment(MainActivity.this))
               .commit();
             break;
 
