@@ -8,13 +8,16 @@ public class Education {
   @PrimaryKey(autoGenerate = true)
   private int id;
   private String institution;
+  private String qualification;
   private String period;
+  private String description;
 
-  public Education(String institution, String period) {
+  public Education(String institution, String qualification, String period, String description) {
     this.institution = institution;
+    this.qualification = qualification;
     this.period = period;
+    this.description = description;
   }
-
   public int getId() {
     return id;
   }
@@ -31,11 +34,27 @@ public class Education {
     this.institution = institution;
   }
 
+  public String getQualification() {
+    return qualification;
+  }
+
+  public void setQualification(String qualification) {
+    this.qualification = qualification;
+  }
+
   public String getPeriod() {
     return period;
   }
 
   public void setPeriod(String period) {
     this.period = period;
+  }
+
+  public String getDescription() {
+    return description;
+  }
+
+  public void setDescription(String description) {
+    this.description = description;
   }
 }

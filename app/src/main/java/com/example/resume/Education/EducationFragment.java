@@ -3,10 +3,12 @@ package com.example.resume.Education;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
@@ -67,6 +69,7 @@ public class EducationFragment extends Fragment {
 
     // Add education
     floatingActionButton.setOnClickListener(new View.OnClickListener() {
+      @RequiresApi(api = Build.VERSION_CODES.O)
       @Override
       public void onClick(View view) {
         AddEducationDialog dialog = new AddEducationDialog();
@@ -99,9 +102,12 @@ public class EducationFragment extends Fragment {
     super.onActivityResult(requestCode, resultCode, data);
 
     if (requestCode == DIALOG_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
-      String institution = data.getStringExtra("institution");
-      String period = data.getStringExtra("period");
-      Education education = new Education(institution, period);
+      String institution = data.getStringExtra(AddEducationDialog.INTENT_INSTITUTION);
+      String qualificationLevel = data.getStringExtra(AddEducationDialog.INTENT_QUALIFICATION);
+      String period = data.getStringExtra(AddEducationDialog.INTENT_PERIOD);
+      String description = data.getStringExtra(AddEducationDialog.INTENT_DESCRIPTION);
+
+      Education education = new Education(institution, qualificationLevel, period, description);
       resumeViewModel.insertEducation(education);
     }
   }

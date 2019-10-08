@@ -18,6 +18,15 @@
             android:text="Add Education"
             style="@style/DialogHeader"
             />
+
+        <EditText
+            android:id="@+id/dialog_education_qualification"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Qualification"
+            style="@style/DialogItem"
+            />
+
         <EditText
             android:id="@+id/dialog_education_institution"
             android:layout_width="match_parent"
@@ -25,20 +34,89 @@
             android:hint="Institution"
             style="@style/DialogItem"
             />
-        <Spinner
-            android:id="@+id/dialog_education_level"
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:spinnerMode="dropdown"
-            style="@style/DialogItem"
-            />
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.4"
+                android:layout_marginRight="2dp"
+                android:text="From"
+                style="@style/DialogItem"
+                />
+            <Spinner
+                android:id="@+id/dialog_education_startPeriod_month"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:spinnerMode="dropdown"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp"
+                android:textAlignment="center"
+                style="@style/DialogItem"
+                />
+            <Spinner
+                android:id="@+id/dialog_education_startPeriod_year"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:spinnerMode="dropdown"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp"
+                android:textAlignment="center"
+                style="@style/DialogItem"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.4"
+                android:layout_marginRight="2dp"
+                android:text="To"
+                style="@style/DialogItem"
+                />
+            <Spinner
+                android:id="@+id/dialog_education_endPeriod_month"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:spinnerMode="dropdown"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp"
+                android:textAlignment="center"
+                style="@style/DialogItem"
+                />
+            <Spinner
+                android:id="@+id/dialog_education_endPeriod_year"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:spinnerMode="dropdown"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp"
+                android:textAlignment="center"
+                style="@style/DialogItem"
+                />
+        </LinearLayout>
+
         <EditText
-            android:id="@+id/dialog_education_period"
+            android:id="@+id/dialog_education_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Period"
+            android:inputType="textMultiLine"
+            android:maxLines="5"
+            android:hint="Short Description"
             style="@style/DialogItem"
             />
+
         <Button
             android:id="@+id/dialog_education_done"
             android:layout_width="match_parent"
