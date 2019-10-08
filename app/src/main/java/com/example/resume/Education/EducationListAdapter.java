@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.resume.R;
 
 public class EducationListAdapter extends ListAdapter<Education, EducationListAdapter.EducationViewHolder> {
+  private OnItemClickListener onItemClickListener;
 
   protected EducationListAdapter() {
     super(DIFF_CALLBACK);
@@ -27,7 +28,9 @@ public class EducationListAdapter extends ListAdapter<Education, EducationListAd
     @Override
     public boolean areContentsTheSame(@NonNull Education oldItem, @NonNull Education newItem) {
       return (oldItem.getInstitution().equals(newItem.getInstitution())
-        && oldItem.getPeriod().equals(newItem.getPeriod()));
+        && oldItem.getPeriod().equals(newItem.getPeriod())
+        && oldItem.getQualification().equals(newItem.getQualification())
+        && oldItem.getDescription().equals(newItem.getDescription()));
     }
   };
 
@@ -64,6 +67,25 @@ public class EducationListAdapter extends ListAdapter<Education, EducationListAd
       textViewInstitution = itemView.findViewById(R.id.list_item_education_institution);
       textViewPeriod = itemView.findViewById(R.id.list_item_education_period);
       textViewDescription = itemView.findViewById(R.id.list_item_education_description);
+
+      itemView.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+          int position = getAdapterPosition();
+
+          if (onItemClickListener != null && position != RecyclerView.NO_POSITION) {
+            onItemClickListener.onItemClick(getItem(position));
+          }
+        }
+      });
     }
+  }
+
+  public interface OnItemClickListener {
+    void onItemClick(Education education);
+  }
+
+  public void setOnItemClickListener (OnItemClickListener onItemClickListener) {
+    this.onItemClickListener = onItemClickListener;
   }
 }

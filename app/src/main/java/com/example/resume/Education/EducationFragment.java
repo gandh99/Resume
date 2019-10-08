@@ -37,7 +37,8 @@ public class EducationFragment extends Fragment {
   private EducationListAdapter adapter = new EducationListAdapter();
   private ResumeViewModel resumeViewModel;
   private Activity activity;
-  private int DIALOG_REQUEST_CODE = 1;
+  private int DIALOG_REQUEST_ADD_CODE = 1;
+  private int DIALOG_REQUEST_UPDATE_CODE = 2;
 
   public EducationFragment(Activity activity) {
     this.activity = activity;
@@ -73,7 +74,7 @@ public class EducationFragment extends Fragment {
       @Override
       public void onClick(View view) {
         AddEducationDialog dialog = new AddEducationDialog();
-        dialog.setTargetFragment(EducationFragment.this, DIALOG_REQUEST_CODE);
+        dialog.setTargetFragment(EducationFragment.this, DIALOG_REQUEST_ADD_CODE);
         dialog.show(((MainActivity) activity).getSupportFragmentManager(), "Add Education");
       }
     });
@@ -94,6 +95,25 @@ public class EducationFragment extends Fragment {
       }
     }).attachToRecyclerView(recyclerView);
 
+    // For updating education
+    adapter.setOnItemClickListener(new EducationListAdapter.OnItemClickListener() {
+      @RequiresApi(api = Build.VERSION_CODES.O)
+      @Override
+      public void onItemClick(Education education) {
+        Bundle bundle = new Bundle();
+        bundle.putInt(AddEducationDialog.INTENT_ID, education.getId());
+        bundle.putString(AddEducationDialog.INTENT_INSTITUTION, education.getInstitution());
+        bundle.putString(AddEducationDialog.INTENT_QUALIFICATION, education.getQualification());
+        bundle.putString(AddEducationDialog.INTENT_PERIOD, education.getPeriod());
+        bundle.putString(AddEducationDialog.INTENT_DESCRIPTION, education.getDescription());
+
+        AddEducationDialog dialog = new AddEducationDialog();
+        dialog.setArguments(bundle);
+        dialog.setTargetFragment(EducationFragment.this, DIALOG_REQUEST_UPDATE_CODE);
+        dialog.show(((MainActivity) activity).getSupportFragmentManager(), "Edit Education");
+      }
+    });
+
     return view;
   }
 
@@ -101,14 +121,20 @@ public class EducationFragment extends Fragment {
   public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
     super.onActivityResult(requestCode, resultCode, data);
 
-    if (requestCode == DIALOG_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+    if (resultCode == Activity.RESULT_OK) {
       String institution = data.getStringExtra(AddEducationDialog.INTENT_INSTITUTION);
       String qualificationLevel = data.getStringExtra(AddEducationDialog.INTENT_QUALIFICATION);
       String period = data.getStringExtra(AddEducationDialog.INTENT_PERIOD);
       String description = data.getStringExtra(AddEducationDialog.INTENT_DESCRIPTION);
-
       Education education = new Education(institution, qualificationLevel, period, description);
-      resumeViewModel.insertEducation(education);
+
+      if (requestCode == DIALOG_REQUEST_ADD_CODE) {
+        resumeViewModel.insertEducation(education);
+      } else if (requestCode == DIALOG_REQUEST_UPDATE_CODE) {
+        int id = data.getIntExtra(AddEducationDialog.INTENT_ID, 0);
+        education.setId(id);
+        resumeViewModel.updateEducation(education);
+      }
     }
   }
 }

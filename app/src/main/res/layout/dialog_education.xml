@@ -20,18 +20,18 @@
             />
 
         <EditText
-            android:id="@+id/dialog_education_qualification"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Qualification"
-            style="@style/DialogItem"
-            />
-
-        <EditText
             android:id="@+id/dialog_education_institution"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Institution"
+            style="@style/DialogItem"
+            />
+
+        <EditText
+            android:id="@+id/dialog_education_qualification"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Qualification"
             style="@style/DialogItem"
             />
 

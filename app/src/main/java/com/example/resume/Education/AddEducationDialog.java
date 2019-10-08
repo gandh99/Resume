@@ -23,6 +23,7 @@ import com.example.resume.R;
 import java.time.Year;
 
 public class AddEducationDialog extends DialogFragment implements View.OnClickListener {
+  final static String INTENT_ID = "id";
   final static String INTENT_INSTITUTION = "institution";
   final static String INTENT_QUALIFICATION = "qualification";
   final static String INTENT_PERIOD = "period";
@@ -62,6 +63,23 @@ public class AddEducationDialog extends DialogFragment implements View.OnClickLi
     setupSpinner(spinnerEndPeriodMonth, R.array.months);
     setupSpinner(spinnerEndPeriodYear, years);
 
+    // Apply saved state (if applicable)
+    final Bundle savedState = getArguments();
+    if (savedState != null) {
+      String institution = savedState.getString(INTENT_INSTITUTION);
+      String qualification = savedState.getString(INTENT_QUALIFICATION);
+      String description = savedState.getString(INTENT_DESCRIPTION);
+      String[] period = savedState.getString(INTENT_PERIOD).split(" ");
+
+      editTextInstitution.setText(institution);
+      editTextQualificationLevel.setText(qualification);
+      editTextDescription.setText(description);
+      spinnerStartPeriodMonth.setSelection(monthToIndex(period[0]));
+      spinnerStartPeriodYear.setSelection(Integer.parseInt(years[0]) - Integer.parseInt(period[1]));
+      spinnerEndPeriodMonth.setSelection(monthToIndex(period[3]));
+      spinnerEndPeriodYear.setSelection(Integer.parseInt(years[0]) - Integer.parseInt(period[4]));
+    }
+
     // Submit button
     buttonDone.setOnClickListener(new View.OnClickListener() {
       @Override
@@ -77,6 +95,11 @@ public class AddEducationDialog extends DialogFragment implements View.OnClickLi
 
         if (!institution.equals("") && !description.equals("")) {
           Intent resultIntent = new Intent();
+
+          if (savedState != null) {
+            resultIntent.putExtra(INTENT_ID, savedState.getInt(INTENT_ID));
+          }
+
           resultIntent.putExtra(INTENT_INSTITUTION, institution);
           resultIntent.putExtra(INTENT_QUALIFICATION, qualification);
           resultIntent.putExtra(INTENT_PERIOD, period);
@@ -91,6 +114,18 @@ public class AddEducationDialog extends DialogFragment implements View.OnClickLi
     return new AlertDialog.Builder(getActivity())
       .setView(view)
       .create();
+  }
+
+  private int monthToIndex(String selectedMonth) {
+    String[] months = getResources().getStringArray(R.array.months);
+
+    for (int i = 0; i < months.length; i++) {
+      if (months[i].equals(selectedMonth)) {
+        return i;
+      }
+    }
+
+    return 0;
   }
 
   private void setupSpinner(Spinner spinner, int resID) {
