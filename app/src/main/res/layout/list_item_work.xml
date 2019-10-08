@@ -11,10 +11,10 @@
         android:layout_margin="10dp">
 
         <TextView
-            android:id="@+id/list_item_education_institution"
+            android:id="@+id/list_item_work_company"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Institution"
+            android:text="Company"
             android:textSize="20sp"
             android:textStyle="bold"
             android:textColor="#000000"
@@ -22,16 +22,16 @@
             />
 
         <TextView
-            android:id="@+id/list_item_education_qualification"
+            android:id="@+id/list_item_work_position"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textStyle="bold"
-            android:text="Education level"
+            android:text="Position"
             style="@style/ListItem"
             />
 
         <TextView
-            android:id="@+id/list_item_education_period"
+            android:id="@+id/list_item_work_period"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textStyle="bold"
@@ -40,7 +40,7 @@
             />
 
         <TextView
-            android:id="@+id/list_item_education_description"
+            android:id="@+id/list_item_work_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"

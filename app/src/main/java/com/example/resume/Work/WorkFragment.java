@@ -4,16 +4,20 @@ package com.example.resume.Work;
 import android.app.Activity;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.ItemTouchHelper;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.resume.Education.Education;
 import com.example.resume.Education.EducationListAdapter;
 import com.example.resume.R;
 import com.example.resume.Education.EducationViewModel;
@@ -53,7 +57,47 @@ public class WorkFragment extends Fragment {
   public View onCreateView(LayoutInflater inflater, ViewGroup container,
                            Bundle savedInstanceState) {
     // Inflate the layout for this fragment
-    return inflater.inflate(R.layout.fragment_work, container, false);
+    View view = inflater.inflate(R.layout.fragment_work, container, false);
+    recyclerView = view.findViewById(R.id.recycler_view_work);
+    floatingActionButton = view.findViewById(R.id.fab_add_work);
+
+    // Setup recyclerView
+    recyclerView.setLayoutManager(new LinearLayoutManager(activity));
+    recyclerView.setAdapter(adapter);
+
+    // Add work
+    floatingActionButton.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View view) {
+
+      }
+    });
+
+    // Swipe to delete work
+    new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT
+      | ItemTouchHelper.RIGHT ) {
+      @Override
+      public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder,
+                            @NonNull RecyclerView.ViewHolder target) {
+        return false;
+      }
+
+      @Override
+      public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+        Work work = adapter.getItemAt(viewHolder.getAdapterPosition());
+        workViewModel.deleteWork(work);
+      }
+    }).attachToRecyclerView(recyclerView);
+
+    // Update work
+    adapter.setOnItemClickListener(new WorkListAdapter.OnItemClickListener() {
+      @Override
+      public void onItemClick(Work work) {
+
+      }
+    });
+
+    return view;
   }
 
 }
