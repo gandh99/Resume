@@ -8,9 +8,25 @@
             android:icon="@drawable/ic_home"
             android:title="Home" />
         <item
+            android:id="@+id/summary"
+            android:icon="@drawable/ic_summary"
+            android:title="Summary" />
+        <item
             android:id="@+id/education"
             android:icon="@drawable/ic_school"
             android:title="Education" />
+        <item
+            android:id="@+id/work"
+            android:icon="@drawable/ic_work"
+            android:title="Work" />
+        <item
+            android:id="@+id/achievements"
+            android:icon="@drawable/ic_prize"
+            android:title="Achievements" />
+        <item
+            android:id="@+id/skills"
+            android:icon="@drawable/ic_build"
+            android:title="Skills" />
     </group>
 
     <item android:title="Communicate">
