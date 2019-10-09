@@ -15,7 +15,7 @@ import com.example.resume.R;
 public class WorkListAdapter extends ListAdapter<Work, WorkListAdapter.WorkViewHolder> {
   private OnItemClickListener onItemClickListener;
 
-  protected WorkListAdapter() {
+  public WorkListAdapter() {
     super(DIFF_CALLBACK);
   }
 

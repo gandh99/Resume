@@ -16,7 +16,7 @@ import com.example.resume.R;
 public class AchievementListAdapter extends ListAdapter<Achievement, AchievementListAdapter.AchievementViewHolder> {
   private OnItemClickListener onItemClickListener;
 
-  protected AchievementListAdapter() {
+  public AchievementListAdapter() {
     super(DIFF_CALLBACK);
   }
 

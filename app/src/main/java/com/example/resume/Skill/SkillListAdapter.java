@@ -16,7 +16,7 @@ import com.example.resume.R;
 public class SkillListAdapter extends ListAdapter<Skill, SkillListAdapter.SkillViewHolder> {
   private OnItemClickListener onItemClickListener;
 
-  protected SkillListAdapter() {
+  public SkillListAdapter() {
     super(DIFF_CALLBACK);
   }
 

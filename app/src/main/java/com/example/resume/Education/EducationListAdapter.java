@@ -12,10 +12,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.resume.R;
 
+import java.util.List;
+
 public class EducationListAdapter extends ListAdapter<Education, EducationListAdapter.EducationViewHolder> {
   private OnItemClickListener onItemClickListener;
 
-  protected EducationListAdapter() {
+  public EducationListAdapter() {
     super(DIFF_CALLBACK);
   }
 

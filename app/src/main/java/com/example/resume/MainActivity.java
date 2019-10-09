@@ -71,9 +71,10 @@ public class MainActivity extends AppCompatActivity {
       public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         switch (menuItem.getItemId()) {
           case R.id.home:
+            toolbar.setTitle(menuItem.getTitle());
             getSupportFragmentManager()
               .beginTransaction()
-              .replace(R.id.fragment_container, new HomeFragment())
+              .replace(R.id.fragment_container, new HomeFragment(MainActivity.this))
               .commit();
             break;
 
@@ -128,9 +129,10 @@ public class MainActivity extends AppCompatActivity {
     if (savedInstanceState == null) {
       getSupportFragmentManager()
         .beginTransaction()
-        .replace(R.id.fragment_container, new HomeFragment())
+        .replace(R.id.fragment_container, new HomeFragment(MainActivity.this))
         .commit();
       navigationView.setCheckedItem(R.id.home);
+      toolbar.setTitle("Home");
     }
   }
 }
