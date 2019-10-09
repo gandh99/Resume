@@ -15,6 +15,7 @@ public class AchievementRepository {
   public AchievementRepository(Application application) {
     AchievementDatabase database = AchievementDatabase.getInstance(application);
     achievementDao = database.achievementDao();
+    allAchievements = achievementDao.getAllAchievements();
   }
 
   public void insert(Achievement achievement) {
