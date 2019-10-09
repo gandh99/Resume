@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.example.resume.Achievement.AchievementFragment;
 import com.example.resume.Education.EducationFragment;
 import com.example.resume.Education.EducationViewModel;
+import com.example.resume.Home.HomeFragment;
 import com.example.resume.Skill.SkillFragment;
 import com.example.resume.Work.WorkFragment;
 import com.google.android.material.navigation.NavigationView;
@@ -76,6 +77,10 @@ public class MainActivity extends AppCompatActivity {
               .beginTransaction()
               .replace(R.id.fragment_container, new HomeFragment(MainActivity.this))
               .commit();
+            break;
+
+          case R.id.summary:
+            // TODO
             break;
 
           case R.id.education:

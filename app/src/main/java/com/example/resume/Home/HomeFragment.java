@@ -1,4 +1,4 @@
-package com.example.resume;
+package com.example.resume.Home;
 
 
 import android.app.Activity;
@@ -21,6 +21,7 @@ import com.example.resume.Achievement.AchievementViewModel;
 import com.example.resume.Education.Education;
 import com.example.resume.Education.EducationListAdapter;
 import com.example.resume.Education.EducationViewModel;
+import com.example.resume.R;
 import com.example.resume.Skill.Skill;
 import com.example.resume.Skill.SkillListAdapter;
 import com.example.resume.Skill.SkillViewModel;
@@ -37,7 +38,6 @@ import java.util.List;
 public class HomeFragment extends Fragment {
   // Common
   private Activity activity;
-  private RecyclerView recyclerView;
   private GroupAdapter groupAdapter;
 
   // Education
@@ -102,13 +102,17 @@ public class HomeFragment extends Fragment {
                            Bundle savedInstanceState) {
     // Inflate the layout for this fragment
     View view = inflater.inflate(R.layout.fragment_home, container, false);
-    recyclerView = view.findViewById(R.id.home_recyclerView);
+    RecyclerView recyclerView = view.findViewById(R.id.home_recyclerView);
 
     // Setup GroupAdapter
     GroupAdapter.Builder builder = new GroupAdapter.Builder();
+    builder.add(new TitleAdapter(activity, "Education"));
     builder.add(educationListAdapter);
+    builder.add(new TitleAdapter(activity, "Work"));
     builder.add(workListAdapter);
+    builder.add(new TitleAdapter(activity, "Achievements"));
     builder.add(achievementListAdapter);
+    builder.add(new TitleAdapter(activity, "Skills"));
     builder.add(skillListAdapter);
     groupAdapter = builder.build();
 

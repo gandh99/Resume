@@ -1,4 +1,4 @@
-package com.example.resume;
+package com.example.resume.Home;
 
 import android.view.ViewGroup;
 
