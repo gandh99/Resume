@@ -6,7 +6,7 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
-@Database(entities = {Work.class}, version = 1)
+@Database(entities = {Work.class}, version = 1, exportSchema = false)
 public abstract class WorkDatabase extends RoomDatabase {
   private static WorkDatabase instance;
   public abstract WorkDao workDao();

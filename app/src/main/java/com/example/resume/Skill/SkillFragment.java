@@ -1,4 +1,4 @@
-package com.example.resume.Education;
+package com.example.resume.Skill;
 
 
 import android.app.Activity;
@@ -30,27 +30,27 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class EducationFragment extends Fragment {
+public class SkillFragment extends Fragment {
   private RecyclerView recyclerView;
   private FloatingActionButton floatingActionButton;
-  private EducationListAdapter adapter = new EducationListAdapter();
-  private EducationViewModel educationViewModel;
+  private SkillListAdapter adapter = new SkillListAdapter();
+  private SkillViewModel skillViewModel;
   private Activity activity;
   final private int DIALOG_REQUEST_ADD_CODE = 1;
   final private int DIALOG_REQUEST_UPDATE_CODE = 2;
 
-  public EducationFragment(Activity activity) {
+  public SkillFragment(Activity activity) {
     this.activity = activity;
   }
 
   @Override
   public void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    educationViewModel = ViewModelProviders.of(getActivity()).get(EducationViewModel.class);
-    educationViewModel.getAllEducation().observe(this, new Observer<List<Education>>() {
+    skillViewModel = ViewModelProviders.of(getActivity()).get(SkillViewModel.class);
+    skillViewModel.getAllSkills().observe(this, new Observer<List<Skill>>() {
       @Override
-      public void onChanged(List<Education> educations) {
-        adapter.submitList(educations);
+      public void onChanged(List<Skill> skills) {
+        adapter.submitList(skills);
       }
     });
   }
@@ -59,26 +59,26 @@ public class EducationFragment extends Fragment {
   public View onCreateView(LayoutInflater inflater, ViewGroup container,
                            Bundle savedInstanceState) {
     // Inflate the layout for this fragment
-    View view = inflater.inflate(R.layout.fragment_education, container, false);
-    recyclerView = view.findViewById(R.id.recycler_view_education);
-    floatingActionButton = view.findViewById(R.id.fab_add_education);
+    View view = inflater.inflate(R.layout.fragment_skill, container, false);
+    recyclerView = view.findViewById(R.id.recycler_view_skill);
+    floatingActionButton = view.findViewById(R.id.fab_add_skill);
 
     // Setup recyclerView
     recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
     recyclerView.setAdapter(adapter);
 
-    // Add education
+    // Add skill
     floatingActionButton.setOnClickListener(new View.OnClickListener() {
       @RequiresApi(api = Build.VERSION_CODES.O)
       @Override
       public void onClick(View view) {
-        AddEducationDialog dialog = new AddEducationDialog();
-        dialog.setTargetFragment(EducationFragment.this, DIALOG_REQUEST_ADD_CODE);
+        AddSkillDialog dialog = new AddSkillDialog();
+        dialog.setTargetFragment(SkillFragment.this, DIALOG_REQUEST_ADD_CODE);
         dialog.show(((MainActivity) activity).getSupportFragmentManager(), "Add Skill");
       }
     });
 
-    // Swipe to delete education
+    // Swipe to delete skill
     new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT
       | ItemTouchHelper.RIGHT ) {
       @Override
@@ -89,26 +89,25 @@ public class EducationFragment extends Fragment {
 
       @Override
       public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-        Education education = adapter.getItemAt(viewHolder.getAdapterPosition());
-        educationViewModel.deleteEducation(education);
+        Skill skill = adapter.getItemAt(viewHolder.getAdapterPosition());
+        skillViewModel.deleteSkill(skill);
       }
     }).attachToRecyclerView(recyclerView);
 
-    // For updating education
-    adapter.setOnItemClickListener(new EducationListAdapter.OnItemClickListener() {
+    // For updating skill
+    adapter.setOnItemClickListener(new SkillListAdapter.OnItemClickListener() {
       @RequiresApi(api = Build.VERSION_CODES.O)
       @Override
-      public void onItemClick(Education education) {
+      public void onItemClick(Skill skill) {
         Bundle bundle = new Bundle();
-        bundle.putInt(AddEducationDialog.INTENT_ID, education.getId());
-        bundle.putString(AddEducationDialog.INTENT_INSTITUTION, education.getInstitution());
-        bundle.putString(AddEducationDialog.INTENT_QUALIFICATION, education.getQualification());
-        bundle.putString(AddEducationDialog.INTENT_PERIOD, education.getPeriod());
-        bundle.putString(AddEducationDialog.INTENT_DESCRIPTION, education.getDescription());
+        bundle.putInt(AddSkillDialog.INTENT_ID, skill.getId());
+        bundle.putString(AddSkillDialog.INTENT_TITLE, skill.getTitle());
+        bundle.putString(AddSkillDialog.INTENT_PROFICIENCY, skill.getProficiency());
+        bundle.putString(AddSkillDialog.INTENT_DESCRIPTION, skill.getDescription());
 
-        AddEducationDialog dialog = new AddEducationDialog();
+        AddSkillDialog dialog = new AddSkillDialog();
         dialog.setArguments(bundle);
-        dialog.setTargetFragment(EducationFragment.this, DIALOG_REQUEST_UPDATE_CODE);
+        dialog.setTargetFragment(SkillFragment.this, DIALOG_REQUEST_UPDATE_CODE);
         dialog.show(((MainActivity) activity).getSupportFragmentManager(), "Edit Skill");
       }
     });
@@ -121,18 +120,17 @@ public class EducationFragment extends Fragment {
     super.onActivityResult(requestCode, resultCode, data);
 
     if (resultCode == Activity.RESULT_OK) {
-      String institution = data.getStringExtra(AddEducationDialog.INTENT_INSTITUTION);
-      String qualificationLevel = data.getStringExtra(AddEducationDialog.INTENT_QUALIFICATION);
-      String period = data.getStringExtra(AddEducationDialog.INTENT_PERIOD);
-      String description = data.getStringExtra(AddEducationDialog.INTENT_DESCRIPTION);
-      Education education = new Education(institution, qualificationLevel, period, description);
+      String title = data.getStringExtra(AddSkillDialog.INTENT_TITLE);
+      String proficiency = data.getStringExtra(AddSkillDialog.INTENT_PROFICIENCY);
+      String description = data.getStringExtra(AddSkillDialog.INTENT_DESCRIPTION);
+      Skill skill = new Skill(title, proficiency, description);
 
       if (requestCode == DIALOG_REQUEST_ADD_CODE) {
-        educationViewModel.insertEducation(education);
+        skillViewModel.insertSkill(skill);
       } else if (requestCode == DIALOG_REQUEST_UPDATE_CODE) {
-        int id = data.getIntExtra(AddEducationDialog.INTENT_ID, 0);
-        education.setId(id);
-        educationViewModel.updateEducation(education);
+        int id = data.getIntExtra(AddSkillDialog.INTENT_ID, 0);
+        skill.setId(id);
+        skillViewModel.updateSkill(skill);
       }
     }
   }

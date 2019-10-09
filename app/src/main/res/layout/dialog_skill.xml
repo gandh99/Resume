@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/dialog_skill"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Add Skill"
+            style="@style/DialogHeader"
+            />
+
+        <EditText
+            android:id="@+id/dialog_skill_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Title"
+            style="@style/DialogItem"
+            />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp">
+
+            <TextView
+                android:id="@+id/textView_proficiency"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Proficiency:"
+                style="@style/DialogItem"
+                />
+
+            <TextView
+                android:id="@+id/textView_proficiency_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/textView_proficiency"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="5dp"
+                android:text="1"
+                style="@style/DialogItem"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/textView_proficiency_value"
+                android:layout_marginLeft="0dp"
+                android:text="/ 10"
+                style="@style/DialogItem"
+                />
+
+        </RelativeLayout>
+
+        <SeekBar
+            android:id="@+id/dialog_skill_proficiency"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="10dp"
+            android:max="10"
+            android:progress="1"
+            style="@style/Widget.AppCompat.SeekBar.Discrete"
+            />
+
+        <EditText
+            android:id="@+id/dialog_skill_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textMultiLine"
+            android:maxLines="5"
+            android:hint="Short Description"
+            style="@style/DialogItem"
+            />
+
+        <Button
+            android:id="@+id/dialog_skill_done"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Done"
+            style="@style/DialogButton"
+            />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

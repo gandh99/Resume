@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.example.resume.Achievement.AchievementFragment;
 import com.example.resume.Education.EducationFragment;
 import com.example.resume.Education.EducationViewModel;
+import com.example.resume.Skill.SkillFragment;
 import com.example.resume.Work.WorkFragment;
 import com.google.android.material.navigation.NavigationView;
 
@@ -101,6 +102,11 @@ public class MainActivity extends AppCompatActivity {
             break;
 
           case R.id.skills:
+            toolbar.setTitle(menuItem.getTitle());
+            getSupportFragmentManager()
+              .beginTransaction()
+              .replace(R.id.fragment_container, new SkillFragment(MainActivity.this))
+              .commit();
             break;
 
           case R.id.share:
