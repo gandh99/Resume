@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.example.resume.Achievement.AchievementFragment;
 import com.example.resume.Education.EducationFragment;
 import com.example.resume.Education.EducationViewModel;
 import com.example.resume.Work.WorkFragment;
@@ -89,6 +90,17 @@ public class MainActivity extends AppCompatActivity {
               .beginTransaction()
               .replace(R.id.fragment_container, new WorkFragment(MainActivity.this))
               .commit();
+            break;
+
+          case R.id.achievements:
+            toolbar.setTitle(menuItem.getTitle());
+            getSupportFragmentManager()
+              .beginTransaction()
+              .replace(R.id.fragment_container, new AchievementFragment(MainActivity.this))
+              .commit();
+            break;
+
+          case R.id.skills:
             break;
 
           case R.id.share:
