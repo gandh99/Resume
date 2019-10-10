@@ -58,18 +58,7 @@ public class ImageConverter {
         Log.i("ATG", "Can't create directory to save the image");
       return null;
     }
-    String filename = pictureFileDir.getPath() + File.separator + System.currentTimeMillis() + ".jpg";
-    File pictureFile = new File(filename);
-    Bitmap bitmap = getScreenshotFromRecyclerView((RecyclerView) drawView);
-
-    try {
-      pictureFile.createNewFile();
-    } catch (IOException e) {
-      e.printStackTrace();
-      Log.i("TAG", "There was an issue saving the image.");
-    }
-
-    return bitmap;
+    return getScreenshotFromRecyclerView((RecyclerView) drawView);
   }
 
   // Used for scanning gallery

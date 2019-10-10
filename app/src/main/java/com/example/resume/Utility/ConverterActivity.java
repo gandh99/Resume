@@ -135,26 +135,25 @@ public class ConverterActivity extends AppCompatActivity {
 
     if (format == Format.IMAGE) {
       File file = ImageConverter.createImage(this, recyclerView);
-      if (file != null) {
-        Toast.makeText(this, "Image saved", Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
-      } else {
-        Toast.makeText(this, "Error saving image", Toast.LENGTH_SHORT).show();
-      }
+      returnToMainActivity(file != null, "Image saved in gallery", "Error saving image");
     } else if (format == Format.PDF) {
       Bitmap bitmap = ImageConverter.getBitmap(recyclerView);
       boolean conversionSuccess = PDFConverter.createPdf(bitmap);
-      if (conversionSuccess) {
-        Toast.makeText(this, "PDF saved", Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
-      } else {
-        Toast.makeText(this, "Error saving PDF", Toast.LENGTH_SHORT).show();
-      }
+      returnToMainActivity(conversionSuccess, "PDF saved in Resume folder", "Error saving PDF");
     }
 
     return true;
+  }
+
+  private void returnToMainActivity(boolean conversionSuccess, String successMsg, String failureMsg) {
+    if (conversionSuccess) {
+      Toast.makeText(this, successMsg, Toast.LENGTH_SHORT).show();
+    } else {
+      Toast.makeText(this, failureMsg, Toast.LENGTH_SHORT).show();
+    }
+
+    Intent intent = new Intent(this, MainActivity.class);
+    startActivity(intent);
   }
 
 }

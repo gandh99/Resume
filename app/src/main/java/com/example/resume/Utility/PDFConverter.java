@@ -14,11 +14,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 
-public class PDFConverter {;
-
-  @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-  public PDFConverter() {
-  }
+public class PDFConverter {
 
   @RequiresApi(api = Build.VERSION_CODES.KITKAT)
   public static boolean createPdf(Bitmap b) {
@@ -38,7 +34,6 @@ public class PDFConverter {;
     document.finishPage(page);
 
     final File folder = new File("/mnt/sdcard/Resume");
-    folder.mkdir();
     File filePath = new File(folder, "myResume" + ".pdf");
 
     try {
