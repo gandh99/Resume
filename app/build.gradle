@@ -45,4 +45,7 @@ dependencies {
     implementation 'androidx.room:room-runtime:2.1.0'
     annotationProcessor 'androidx.room:room-compiler:2.1.0'
     debugImplementation 'com.amitshekhar.android:debug-db:1.0.6'
+
+    // itext
+    implementation 'com.itextpdf:itextpdf:5.0.6'
 }
