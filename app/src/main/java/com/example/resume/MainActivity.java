@@ -12,12 +12,8 @@ import androidx.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import com.example.resume.Achievement.AchievementFragment;
@@ -25,10 +21,9 @@ import com.example.resume.Education.EducationFragment;
 import com.example.resume.Education.EducationViewModel;
 import com.example.resume.Home.HomeFragment;
 import com.example.resume.Skill.SkillFragment;
+import com.example.resume.Utility.ConverterActivity;
 import com.example.resume.Work.WorkFragment;
 import com.google.android.material.navigation.NavigationView;
-
-import java.io.File;
 
 public class MainActivity extends AppCompatActivity {
   private DrawerLayout drawerLayout;
@@ -163,10 +158,19 @@ public class MainActivity extends AppCompatActivity {
   public boolean onOptionsItemSelected(@NonNull MenuItem item) {
     switch (item.getItemId()) {
       case R.id.action_save_as_image:
-        /* ImageActivity will start a new activity and generate the layout to be saved as an image
+        /* ConverterActivity will start a new activity and generate the layout to be saved as an image
         * When image has been saved, the activity will automatically return to MainActivity */
-        Intent intent = new Intent(MainActivity.this, ImageActivity.class);
-        startActivity(intent);
+        Intent intentSaveImage = new Intent(MainActivity.this, ConverterActivity.class);
+        intentSaveImage.putExtra(ConverterActivity.INTENT_FORMAT, ConverterActivity.Format.IMAGE);
+        startActivity(intentSaveImage);
+        return true;
+
+      case R.id.action_save_as_pdf:
+        /* ConverterActivity will start a new activity and generate the layout to be saved as an image
+         * When image has been saved, the activity will automatically return to MainActivity */
+        Intent intentSavePDF = new Intent(MainActivity.this, ConverterActivity.class);
+        intentSavePDF.putExtra(ConverterActivity.INTENT_FORMAT, ConverterActivity.Format.PDF);
+        startActivity(intentSavePDF);
         return true;
 
       default:

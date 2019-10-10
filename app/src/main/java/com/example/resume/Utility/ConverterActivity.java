@@ -1,5 +1,6 @@
-package com.example.resume;
+package com.example.resume.Utility;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
@@ -7,6 +8,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.widget.Toast;
@@ -19,10 +22,11 @@ import com.example.resume.Education.EducationListAdapter;
 import com.example.resume.Education.EducationViewModel;
 import com.example.resume.Home.GroupAdapter;
 import com.example.resume.Home.TitleAdapter;
+import com.example.resume.MainActivity;
+import com.example.resume.R;
 import com.example.resume.Skill.Skill;
 import com.example.resume.Skill.SkillListAdapter;
 import com.example.resume.Skill.SkillViewModel;
-import com.example.resume.Utility.ImageConverter;
 import com.example.resume.Work.Work;
 import com.example.resume.Work.WorkListAdapter;
 import com.example.resume.Work.WorkViewModel;
@@ -30,10 +34,11 @@ import com.example.resume.Work.WorkViewModel;
 import java.io.File;
 import java.util.List;
 
-public class ImageActivity extends AppCompatActivity {
+public class ConverterActivity extends AppCompatActivity {
   // Common
   private GroupAdapter groupAdapter;
   private RecyclerView recyclerView;
+  private Format format;
 
   // Education
   private EducationViewModel educationViewModel;
@@ -51,10 +56,24 @@ public class ImageActivity extends AppCompatActivity {
   private SkillViewModel skillViewModel;
   private SkillListAdapter skillListAdapter = new SkillListAdapter();
 
+
+  // Format
+  final static public String INTENT_FORMAT = "format";
+  public enum Format {
+    IMAGE,
+    PDF
+  }
+
+  public ConverterActivity() {
+  }
+
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_image);
+    setContentView(R.layout.activity_converter);
+
+    // Get format
+    format = (Format) getIntent().getSerializableExtra(INTENT_FORMAT);
 
     educationViewModel = ViewModelProviders.of(this).get(EducationViewModel.class);
     educationViewModel.getAllEducation().observe(this, new Observer<List<Education>>() {
@@ -108,18 +127,31 @@ public class ImageActivity extends AppCompatActivity {
     recyclerView.setAdapter(groupAdapter);
   }
 
+  @RequiresApi(api = Build.VERSION_CODES.KITKAT)
   @Override
   public boolean onCreateOptionsMenu(Menu menu) {
     getMenuInflater()
       .inflate(R.menu.toolbar_menu, menu);
 
-    File file = ImageConverter.saveBitMap(this, recyclerView);
-    if (file != null) {
-      Toast.makeText(this, "Image saved", Toast.LENGTH_SHORT).show();
-      Intent intent = new Intent(this, MainActivity.class);
-      startActivity(intent);
-    } else {
-      Toast.makeText(this, "Error saving image", Toast.LENGTH_SHORT).show();
+    if (format == Format.IMAGE) {
+      File file = ImageConverter.createImage(this, recyclerView);
+      if (file != null) {
+        Toast.makeText(this, "Image saved", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+      } else {
+        Toast.makeText(this, "Error saving image", Toast.LENGTH_SHORT).show();
+      }
+    } else if (format == Format.PDF) {
+      Bitmap bitmap = ImageConverter.getBitmap(recyclerView);
+      boolean conversionSuccess = PDFConverter.createPdf(bitmap);
+      if (conversionSuccess) {
+        Toast.makeText(this, "PDF saved", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+      } else {
+        Toast.makeText(this, "Error saving PDF", Toast.LENGTH_SHORT).show();
+      }
     }
 
     return true;

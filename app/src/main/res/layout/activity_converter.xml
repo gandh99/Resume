@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/imageActivity_scrollView"
-    tools:context=".ImageActivity">
+    tools:context=".Utility.ConverterActivity">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/imageActivity_recyclerView"
